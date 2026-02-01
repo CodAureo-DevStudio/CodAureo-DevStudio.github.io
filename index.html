@@ -12,11 +12,12 @@
     
     <style>
         :root {
-            --bg-color: #0b0b0b;
-            --text-primary: #e6e6e6;
-            --text-secondary: #888;
-            --border-color: #222;
-            --accent: #fff;
+            --bg-color: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --border-color: #e5e5e5;
+            --brand-navy: #0f172a; /* Deep Navy */
+            --brand-gold: #D4AF37;
             
             --font-sans: 'Inter', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
@@ -49,21 +50,21 @@
         }
 
         a { text-decoration: none; color: inherit; transition: 0.2s; }
-        a:hover { color: var(--accent); }
+        a:hover { color: var(--brand-gold); }
 
         /* header */
         header {
-            padding: 2rem 0;
+            padding: 1.5rem 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border-color);
         }
 
-        .brand {
-            font-weight: 500;
-            font-size: 1rem;
-            letter-spacing: -0.02em;
+        .brand-logo {
+            height: 60px; /* Adjust based on logo needs */
+            width: auto;
+            display: block;
         }
 
         /* Hero */
@@ -123,47 +124,102 @@
         }
 
         .project-card {
-            group: project;
+            cursor: pointer;
         }
 
         .project-image {
-            background: #111;
+            background: #f4f4f5;
             aspect-ratio: 16/10;
             margin-bottom: 1rem;
-            border: 1px solid var(--border-color);
+            border: 1px solid transparent;
             position: relative;
             overflow: hidden;
-            transition: border-color 0.3s;
+            border-radius: 8px;
+            transition: all 0.3s ease;
         }
 
         .project-card:hover .project-image {
-            border-color: #444;
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
         }
+
+        /* Gallery Styles */
+        .project-gallery {
+            position: relative;
+            background: #f4f4f5;
+            aspect-ratio: 16/10;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .gallery-track {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            height: 100%;
+            scrollbar-width: none; /* Firefox */
+        }
+        
+        .gallery-track::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+
+        .gallery-item {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 100%;
+            scroll-snap-align: center;
+            position: relative;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            opacity: 0.9;
+            transition: 0.3s;
+        }
+
+        .project-card:hover .gallery-item img { opacity: 1; transform: scale(1.02); }
+
+        .gallery-nav {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+            z-index: 10;
+        }
+
+        .gallery-dot {
+            width: 6px; height: 6px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+        }
+        .gallery-dot.active { background: #fff; }
 
         .project-meta {
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border-color);
-            padding-bottom: 0.5rem;
-            margin-bottom: 0.5rem;
+            padding-bottom: 0.8rem;
+            margin-bottom: 0.8rem;
         }
 
-        .project-title {
-            font-size: 1rem;
-            font-weight: 500;
-        }
+        .project-title { font-size: 1.1rem; font-weight: 500; letter-spacing: -0.02em; color: var(--brand-navy); }
         
-        .project-tags {
-            display: flex;
-            gap: 0.5rem;
-        }
+        .project-tags { display: flex; gap: 0.8rem; }
+        .tag { color: var(--text-secondary); font-size: 0.75rem; position: relative; }
+        .tag:not(:last-child)::after { content: '/'; position: absolute; right: -0.5rem; color: #ccc; }
 
         /* About & Footer */
         .info-section {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 6rem;
             padding: 8rem 0;
             border-top: 1px solid var(--border-color);
             margin-top: 4rem;
@@ -174,11 +230,14 @@
             border-top: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
+            color: #666;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
         }
 
         @media(max-width: 768px) {
             .project-grid { grid-template-columns: 1fr; }
-            .info-section { grid-template-columns: 1fr; gap: 2rem; }
+            .info-section { grid-template-columns: 1fr; gap: 3rem; }
         }
     </style>
 </head>
@@ -186,114 +245,145 @@
 
     <div class="container">
         <header>
-            <div class="brand">CodAureo.</div>
+            <div class="logo-container">
+                <img src="logo-final.png" alt="CodAureo DevStudio" class="brand-logo">
+            </div>
             <nav class="mono">
-                <a href="mailto:contato@codaureo.com">Contato</a>
+                <a href="#projects">Work</a>
+                <span style="margin: 0 1rem; color: #ccc">/</span>
+                <a href="mailto:contato@codaureo.com">Contact</a>
             </nav>
         </header>
 
         <section class="hero">
             <div class="status-badge mono">
                 <span class="status-dot"></span>
-                Available for new projects
+                System Core Online
             </div>
-            <h1>Simplicidade é a máxima sofisticação. Construímos sistemas digitais robustos e interfaces limpas.</h1>
-            <p>Especialistas em desenvolvimento Fullstack, Automação Python e Arquitetura de Software. Foco total em performance e experiência do usuário, sem ruídos.</p>
+            <h1>Simplicidade é a máxima sofisticação.<br>
+            <span style="color: var(--text-secondary);">Engenharia digital de alta precisão.</span></h1>
+            <p>CodAureo DevStudio especializa-se em construir ecossistemas digitais robustos, interfaces imersivas e automação inteligente.</p>
         </section>
 
-        <div class="grid-header">
-            <span class="mono">( Selected Works )</span>
-            <span class="mono scroll-hint">↓ 2024—2026</span>
+        <div id="projects" class="grid-header">
+            <span class="mono">[ PROJECT_GALLERY ]</span>
+            <span class="mono scroll-hint">↓ SCROLL TO EXPLORE</span>
         </div>
 
         <div class="project-grid">
-            <!-- Project 1 -->
+            <!-- Project 1: Alpha Studio -->
             <article class="project-card">
-                <div class="project-image">
-                    <!-- Placeholder visual for minimalism -->
-                    <div style="width:100%; height:100%; background: linear-gradient(45deg, #111, #161616); display:flex; align-items:center; justify-content:center;">
-                        <span class="mono">img_01.jpg</span>
+                <div class="project-gallery">
+                    <div class="gallery-track">
+                        <div class="gallery-item"><img src="project-alpha.png" alt="Alpha Dashboard Home"></div>
+                        <div class="gallery-item"><img src="project-pibid.png" alt="Admin View"></div> <!-- Using pibid as secondary view for demo -->
+                    </div>
+                    <div class="gallery-nav">
+                        <div class="gallery-dot active"></div>
+                        <div class="gallery-dot"></div>
                     </div>
                 </div>
                 <div class="project-meta">
                     <h3 class="project-title">Alpha Studio V3</h3>
                     <span class="mono">2025</span>
                 </div>
-                <div class="mono project-tags">
-                    <span>React</span> / <span>Firebase</span> / <span>CMS</span>
+                <div class="project-tags mono">
+                    <span class="tag">React</span>
+                    <span class="tag">Firebase</span>
+                    <span class="tag">Dashboard CMS</span>
                 </div>
             </article>
 
-            <!-- Project 2 -->
+            <!-- Project 2: Letreiro Digital -->
             <article class="project-card">
-                 <div class="project-image">
-                    <div style="width:100%; height:100%; background: linear-gradient(45deg, #111, #161616); display:flex; align-items:center; justify-content:center;">
-                        <span class="mono">img_02.jpg</span>
+                 <div class="project-gallery">
+                    <div class="gallery-track">
+                        <div class="gallery-item"><img src="project-letreiro.png" alt="Letreiro Interface"></div>
+                        <div class="gallery-item"><img src="project-alpha.png" alt="Settings View"></div>
+                    </div>
+                     <div class="gallery-nav">
+                        <div class="gallery-dot active"></div>
+                        <div class="gallery-dot"></div>
                     </div>
                 </div>
                 <div class="project-meta">
                     <h3 class="project-title">Letreiro Digital System</h3>
                     <span class="mono">2026</span>
                 </div>
-                <div class="mono project-tags">
-                    <span>Python</span> / <span>Automation</span>
+                <div class="project-tags mono">
+                    <span class="tag">Python</span>
+                    <span class="tag">Tkinter</span>
+                    <span class="tag">Automation</span>
                 </div>
             </article>
 
-            <!-- Project 3 -->
+            <!-- Project 3: Corporate Tech -->
             <article class="project-card">
-                 <div class="project-image">
-                    <div style="width:100%; height:100%; background: linear-gradient(45deg, #111, #161616); display:flex; align-items:center; justify-content:center;">
-                        <span class="mono">img_03.jpg</span>
+                 <div class="project-gallery">
+                    <div class="gallery-track">
+                        <div class="gallery-item"><img src="project-corporate.png" alt="Corporate Landing"></div>
+                        <div class="gallery-item"><img src="project-pibid.png" alt="Mobile View"></div>
+                    </div>
+                     <div class="gallery-nav">
+                        <div class="gallery-dot active"></div>
+                        <div class="gallery-dot"></div>
                     </div>
                 </div>
                 <div class="project-meta">
-                    <h3 class="project-title">Corporate Tech Platform</h3>
+                    <h3 class="project-title">Aurum Technologies</h3>
                     <span class="mono">2025</span>
                 </div>
-                <div class="mono project-tags">
-                    <span>Next.js</span> / <span>SEO</span>
+                <div class="project-tags mono">
+                    <span class="tag">Next.js</span>
+                    <span class="tag">WebGL</span>
+                    <span class="tag">Corporate</span>
                 </div>
             </article>
 
-            <!-- Project 4 -->
+            <!-- Project 4: PIBID -->
             <article class="project-card">
-                 <div class="project-image">
-                    <div style="width:100%; height:100%; background: linear-gradient(45deg, #111, #161616); display:flex; align-items:center; justify-content:center;">
-                        <span class="mono">img_04.jpg</span>
+                 <div class="project-gallery">
+                    <div class="gallery-track">
+                        <div class="gallery-item"><img src="project-pibid.png" alt="Academic Dashboard"></div>
+                        <div class="gallery-item"><img src="project-alpha.png" alt="Student List"></div>
+                    </div>
+                     <div class="gallery-nav">
+                        <div class="gallery-dot active"></div>
+                        <div class="gallery-dot"></div>
                     </div>
                 </div>
                 <div class="project-meta">
-                    <h3 class="project-title">PIBID Management</h3>
+                    <h3 class="project-title">Academic Management</h3>
                     <span class="mono">2024</span>
                 </div>
-                <div class="mono project-tags">
-                    <span>System Design</span> / <span>Dashboards</span>
+                <div class="project-tags mono">
+                    <span class="tag">System Design</span>
+                    <span class="tag">Data Analysis</span>
                 </div>
             </article>
         </div>
 
         <section class="info-section">
             <div>
-                <span class="mono" style="display:block; margin-bottom:1rem;">( Design Philosophy )</span>
-                <p style="font-size: 1.5rem; line-height: 1.4;">
-                    Acreditamos que o bom código é invisível. Nossa abordagem prioriza a clareza sobre o excesso, criando soluções que resolvem problemas complexos com elegância.
+                <span class="mono" style="display:block; margin-bottom:1.5rem; color: #fff;">[ PHILOSOPHY ]</span>
+                <p style="font-size: 1.8rem; line-height: 1.3; color: #e6e6e6;">
+                    "Menos, mas melhor."<br>
+                    <span style="color: #666; font-size: 1.2rem; display: block; margin-top: 1rem;">
+                        Nosso código é limpo, nossa estética é intencional. Criamos software que respeita o usuário e eleva a marca.
+                    </span>
                 </p>
             </div>
             <div>
-                <span class="mono" style="display:block; margin-bottom:1rem;">( Stack )</span>
-                <ul style="list-style: none; color: var(--text-secondary);">
-                    <li style="margin-bottom: 0.5rem;">Python / Django / Fast API</li>
-                    <li style="margin-bottom: 0.5rem;">JavaScript / React / Next.js</li>
-                    <li style="margin-bottom: 0.5rem;">Firebase / SQL / NoSQL</li>
-                    <li style="margin-bottom: 0.5rem;">Automations / RPA / Scripts</li>
-                </ul>
+                <span class="mono" style="display:block; margin-bottom:1.5rem; color: #fff;">[ TECHNICAL_STACK ]</span>
+                <div class="status-badge mono" style="margin-bottom: 0.5rem; display: block; width: fit-content;">Python & Automation Core</div>
+                <div class="status-badge mono" style="margin-bottom: 0.5rem; display: block; width: fit-content;">Modern Web (React/Next)</div>
+                <div class="status-badge mono" style="margin-bottom: 0.5rem; display: block; width: fit-content;">Cloud & Serverless Architecture</div>
             </div>
         </section>
 
         <footer class="footer">
-            <div class="brand">CodAureo DevStudio.</div>
-            <div class="mono">&copy; 2026</div>
+            <div>CodAureo DevStudio &copy; 2026</div>
+            <div>São Paulo / Remote Worldwide</div>
         </footer>
     </div>
 </body>
