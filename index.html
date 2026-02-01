@@ -3,368 +3,298 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodAureo DevStudio | Premium Development</title>
-    <meta name="description" content="CodAureo DevStudio - Excelência em desenvolvimento web, automação e design digital.">
+    <title>CodAureo DevStudio</title>
+    <meta name="description" content="CodAureo DevStudio - Arquitetura de Software e Design Digital.">
     
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Manrope:wght@200;300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-color: #050505;
-            --text-color: #e0e0e0;
-            --gold-primary: #D4AF37;
-            --gold-secondary: #AA8C2C;
-            --glass-bg: rgba(20, 20, 20, 0.7);
-            --glass-border: 1px solid rgba(212, 175, 55, 0.15);
+            --bg-color: #0b0b0b;
+            --text-primary: #e6e6e6;
+            --text-secondary: #888;
+            --border-color: #222;
+            --accent: #fff;
+            
+            --font-sans: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Manrope', sans-serif;
-            overflow-x: hidden;
-            background-image: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.08), transparent 40%);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            font-weight: 300;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Utility */
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 5%; }
-        .gold-text { 
-            background: linear-gradient(135deg, #F3E5AB, var(--gold-primary), #B88A00);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        /* Utilities */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
         
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0; left: 0; width: 100%;
-            padding: 2rem 5%;
+        .mono {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.2s; }
+        a:hover { color: var(--accent); }
+
+        /* header */
+        header {
+            padding: 2rem 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 1000;
-            transition: 0.3s;
-            mix-blend-mode: difference;
+            border-bottom: 1px solid var(--border-color);
         }
-        
-        .nav-logo { font-family: 'Cinzel', serif; font-size: 1.5rem; letter-spacing: 2px; font-weight: 600; }
-        .nav-menu { display: flex; gap: 3rem; }
-        .nav-link { 
-            color: #fff; text-decoration: none; 
-            text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px;
-            position: relative;
-        }
-        .nav-link::after {
-            content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1px;
-            background: var(--gold-primary); transition: 0.3s;
-        }
-        .nav-link:hover::after { width: 100%; }
 
-        /* Hero Section */
+        .brand {
+            font-weight: 500;
+            font-size: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        /* Hero */
         .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
+            padding: 8rem 0;
+            max-width: 800px;
         }
 
         .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(4rem, 15vw, 12rem);
-            line-height: 0.9;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 400;
             letter-spacing: -0.04em;
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.5s;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            color: #fff;
         }
 
-        .hero-subtitle {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(0.8rem, 2vw, 1.2rem);
-            letter-spacing: 0.5em;
-            text-transform: uppercase;
-            color: var(--gold-primary);
-            margin-top: 2rem;
-            opacity: 0;
-            animation: fadeIn 1.5s ease forwards 1.2s;
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin-bottom: 3rem;
         }
 
-        .scroll-indicator {
-            position: absolute;
-            bottom: 3rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
+        .status-badge {
+            display: inline-flex;
             align-items: center;
-            gap: 1rem;
-            opacity: 0.5;
+            gap: 0.5rem;
+            padding: 0.3rem 0.6rem;
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 4px;
+            margin-bottom: 2rem;
         }
-        .scroll-line { width: 1px; height: 60px; background: linear-gradient(to bottom, var(--gold-primary), transparent); }
-
-        /* Scrollytelling / Projects */
-        .section-title {
-            font-family: 'Cinzel', serif;
-            font-size: 4rem;
-            margin-bottom: 4rem;
-            opacity: 0.1;
-            position: absolute;
-            right: 0;
-            top: -2rem;
-            z-index: -1;
+        .status-dot {
+            width: 6px; height: 6px;
+            background-color: #0f0;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #0f0;
         }
 
-        .project-section {
-            padding: 10rem 0;
-            position: relative;
+        /* Projects Grid */
+        .grid-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 2rem;
+            padding-top: 4rem;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 2rem;
         }
 
         .project-card {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 4rem;
-            margin-bottom: 10rem;
-            align-items: center;
+            group: project;
         }
 
-        .project-visual {
-            height: 60vh;
-            background: var(--glass-bg);
-            border: var(--glass-border);
-            border-radius: 4px;
+        .project-image {
+            background: #111;
+            aspect-ratio: 16/10;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
             position: relative;
             overflow: hidden;
-            transition: transform 0.5s ease;
-        }
-        
-        .project-visual::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(45deg, rgba(212,175,55,0.05), transparent);
+            transition: border-color 0.3s;
         }
 
-        .project-icon {
-            font-size: 4rem;
-            position: absolute;
-            top: 50%; left: 50%; transform: translate(-50%, -50%);
-            color: var(--gold-primary);
-            opacity: 0.8;
-            transition: 0.5s;
+        .project-card:hover .project-image {
+            border-color: #444;
         }
 
-        .project-visual:hover .project-icon { transform: translate(-50%, -50%) scale(1.1); color: #fff; }
-        .project-visual:hover { border-color: var(--gold-primary); }
-
-        .project-info h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
         .project-meta {
-            font-family: 'Cinzel', monospace;
-            font-size: 0.8rem;
-            color: var(--gold-secondary);
-            margin-bottom: 2rem;
-            display: block;
-            letter-spacing: 2px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.5rem;
         }
-        .project-desc {
-            color: #aaa;
-            line-height: 1.8;
-            margin-bottom: 2rem;
-            font-weight: 300;
-        }
-        .btn-link {
-            display: inline-block;
-            padding: 1rem 2rem;
-            border: 1px solid var(--gold-primary);
-            color: var(--gold-primary);
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            transition: 0.3s;
-        }
-        .btn-link:hover { background: var(--gold-primary); color: #000; }
 
-        /* About / Philosophy */
-        .philosophy {
-            background: #080808;
-            padding: 8rem 0;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+        .project-title {
+            font-size: 1rem;
+            font-weight: 500;
         }
         
-        .grid-gold {
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        /* About & Footer */
+        .info-section {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: 1fr 1fr;
             gap: 4rem;
-            align-items: center;
+            padding: 8rem 0;
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
         }
 
-        .metric {
-            border-left: 1px solid var(--gold-primary);
-            padding-left: 2rem;
-            margin-bottom: 3rem;
+        .footer {
+            padding: 3rem 0;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
         }
-        .metric-val { font-size: 3rem; font-family: 'Playfair Display'; color: #fff; }
-        .metric-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: #666; }
 
-        /* Footer */
-        footer {
-            padding: 5rem 0;
-            text-align: center;
-            border-top: 1px solid #111;
-        }
-        .socials { display: flex; justify-content: center; gap: 2rem; margin: 2rem 0; }
-        .socials a { color: #666; text-decoration: none; transition: 0.3s; }
-        .socials a:hover { color: var(--gold-primary); }
-
-        /* Animations */
-        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeIn { to { opacity: 1; } }
-
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 4rem; }
-            .project-card { grid-template-columns: 1fr; gap: 2rem; }
-            .nav-menu { display: none; }
-            .project-visual { height: 40vh; }
-            .grid-gold { grid-template-columns: 1fr; }
+        @media(max-width: 768px) {
+            .project-grid { grid-template-columns: 1fr; }
+            .info-section { grid-template-columns: 1fr; gap: 2rem; }
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="nav-logo">COD<span class="gold-text">AUREO</span></div>
-        <div class="nav-menu">
-            <a href="#work" class="nav-link">Work</a>
-            <a href="#studio" class="nav-link">Studio</a>
-            <a href="#contact" class="nav-link">Contact</a>
-        </div>
-    </nav>
+    <div class="container">
+        <header>
+            <div class="brand">CodAureo.</div>
+            <nav class="mono">
+                <a href="mailto:contato@codaureo.com">Contato</a>
+            </nav>
+        </header>
 
-    <header class="hero">
-        <div class="container">
-            <div class="hero-subtitle">The Golden Ratio of Code</div>
-            <h1>CodAureo<br><span class="gold-text" style="font-size: 0.5em; font-style: italic;">DevStudio</span></h1>
-        </div>
-        
-        <div class="scroll-indicator">
-            <span style="font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;">Scroll</span>
-            <div class="scroll-line"></div>
-        </div>
-    </header>
-
-    <section id="work" class="project-section container">
-        <h3 class="section-title">Selected Works</h3>
-
-        <!-- Project 1 -->
-        <article class="project-card">
-            <div class="project-visual">
-                <div class="project-icon">✦</div>
+        <section class="hero">
+            <div class="status-badge mono">
+                <span class="status-dot"></span>
+                Available for new projects
             </div>
-            <div class="project-info">
-                <span class="project-meta">01 / Featured Project</span>
-                <h2>Alpha Studio <span class="gold-text">V3</span></h2>
-                <p class="project-desc">Uma experiência digital completa. CMS personalizado integrado com Firebase, design system responsivo e arquitetura escalável. O ápice da performance web.</p>
-                <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
-                    <span style="font-size: 0.8rem; border: 1px solid #333; padding: 5px 10px; color: #888;">React</span>
-                    <span style="font-size: 0.8rem; border: 1px solid #333; padding: 5px 10px; color: #888;">Firebase</span>
+            <h1>Simplicidade é a máxima sofisticação. Construímos sistemas digitais robustos e interfaces limpas.</h1>
+            <p>Especialistas em desenvolvimento Fullstack, Automação Python e Arquitetura de Software. Foco total em performance e experiência do usuário, sem ruídos.</p>
+        </section>
+
+        <div class="grid-header">
+            <span class="mono">( Selected Works )</span>
+            <span class="mono scroll-hint">↓ 2024—2026</span>
+        </div>
+
+        <div class="project-grid">
+            <!-- Project 1 -->
+            <article class="project-card">
+                <div class="project-image">
+                    <!-- Placeholder visual for minimalism -->
+                    <div style="width:100%; height:100%; background: linear-gradient(45deg, #111, #161616); display:flex; align-items:center; justify-content:center;">
+                        <span class="mono">img_01.jpg</span>
+                    </div>
                 </div>
-                <a href="#" class="btn-link">View Case</a>
-            </div>
-        </article>
+                <div class="project-meta">
+                    <h3 class="project-title">Alpha Studio V3</h3>
+                    <span class="mono">2025</span>
+                </div>
+                <div class="mono project-tags">
+                    <span>React</span> / <span>Firebase</span> / <span>CMS</span>
+                </div>
+            </article>
 
-        <!-- Project 2 -->
-        <article class="project-card" style="direction: rtl;">
-            <div class="project-visual">
-                <div class="project-icon">⚡</div>
-            </div>
-            <div class="project-info" style="direction: ltr;">
-                <span class="project-meta">02 / Automation</span>
-                <h2>Letreiro <span class="gold-text">Digital</span></h2>
-                <p class="project-desc">Sistema de sinalização digital de alta precisão baseada em Python. Controle em tempo real, gestão de cronogramas e interface otimizada para operadores.</p>
-                <a href="#" class="btn-link">View Case</a>
-            </div>
-        </article>
+            <!-- Project 2 -->
+            <article class="project-card">
+                 <div class="project-image">
+                    <div style="width:100%; height:100%; background: linear-gradient(45deg, #111, #161616); display:flex; align-items:center; justify-content:center;">
+                        <span class="mono">img_02.jpg</span>
+                    </div>
+                </div>
+                <div class="project-meta">
+                    <h3 class="project-title">Letreiro Digital System</h3>
+                    <span class="mono">2026</span>
+                </div>
+                <div class="mono project-tags">
+                    <span>Python</span> / <span>Automation</span>
+                </div>
+            </article>
 
-    </section>
+            <!-- Project 3 -->
+            <article class="project-card">
+                 <div class="project-image">
+                    <div style="width:100%; height:100%; background: linear-gradient(45deg, #111, #161616); display:flex; align-items:center; justify-content:center;">
+                        <span class="mono">img_03.jpg</span>
+                    </div>
+                </div>
+                <div class="project-meta">
+                    <h3 class="project-title">Corporate Tech Platform</h3>
+                    <span class="mono">2025</span>
+                </div>
+                <div class="mono project-tags">
+                    <span>Next.js</span> / <span>SEO</span>
+                </div>
+            </article>
 
-    <section id="studio" class="philosophy">
-        <div class="container grid-gold">
+            <!-- Project 4 -->
+            <article class="project-card">
+                 <div class="project-image">
+                    <div style="width:100%; height:100%; background: linear-gradient(45deg, #111, #161616); display:flex; align-items:center; justify-content:center;">
+                        <span class="mono">img_04.jpg</span>
+                    </div>
+                </div>
+                <div class="project-meta">
+                    <h3 class="project-title">PIBID Management</h3>
+                    <span class="mono">2024</span>
+                </div>
+                <div class="mono project-tags">
+                    <span>System Design</span> / <span>Dashboards</span>
+                </div>
+            </article>
+        </div>
+
+        <section class="info-section">
             <div>
-                <h2 style="font-family: 'Playfair Display'; font-size: 3rem; margin-bottom: 2rem;">A Lógica da <span class="gold-text">Beleza</span></h2>
-                <p style="color: #888; line-height: 1.8; margin-bottom: 2rem;">
-                    No CodAureo DevStudio, não escrevemos apenas código. Nós esculpimos experiências digitais. 
-                    Nossa metodologia combina a precisão matemática da engenharia de software com a estética atemporal do design.
+                <span class="mono" style="display:block; margin-bottom:1rem;">( Design Philosophy )</span>
+                <p style="font-size: 1.5rem; line-height: 1.4;">
+                    Acreditamos que o bom código é invisível. Nossa abordagem prioriza a clareza sobre o excesso, criando soluções que resolvem problemas complexos com elegância.
                 </p>
-                <a href="#" class="btn-link">Sobre o Studio</a>
             </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-                <div class="metric">
-                    <div class="metric-val">7+</div>
-                    <div class="metric-label">Projetos Entregues</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-val">100%</div>
-                    <div class="metric-label">Precisão no Code</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-val">∞</div>
-                    <div class="metric-label">Expansão Digital</div>
-                </div>
+            <div>
+                <span class="mono" style="display:block; margin-bottom:1rem;">( Stack )</span>
+                <ul style="list-style: none; color: var(--text-secondary);">
+                    <li style="margin-bottom: 0.5rem;">Python / Django / Fast API</li>
+                    <li style="margin-bottom: 0.5rem;">JavaScript / React / Next.js</li>
+                    <li style="margin-bottom: 0.5rem;">Firebase / SQL / NoSQL</li>
+                    <li style="margin-bottom: 0.5rem;">Automations / RPA / Scripts</li>
+                </ul>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="contact" style="padding: 10rem 0; text-align: center;">
-        <div class="container">
-            <span style="font-family: 'Cinzel'; color: var(--gold-primary); letter-spacing: 5px;">GET IN TOUCH</span>
-            <h2 style="font-family: 'Playfair Display'; font-size: 4rem; margin: 2rem 0;">Vamos criar algo <br>extraordinário.</h2>
-            <a href="mailto:contato@codaureo.com" style="display: inline-block; font-size: 1.5rem; color: #fff; text-decoration: none; border-bottom: 1px solid var(--gold-primary); padding-bottom: 5px;">contato@codaureo.com</a>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <div class="nav-logo" style="font-size: 1rem; margin-bottom: 1rem;">COD<span class="gold-text">AUREO</span></div>
-            <div class="socials">
-                <a href="#">Instagram</a>
-                <a href="#">GitHub</a>
-                <a href="#">LinkedIn</a>
-            </div>
-            <p style="color: #444; font-size: 0.8rem;">&copy; 2026 CodAureo DevStudio. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-    <script>
-        // Simple reveal animation on scroll
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) {
-                    entry.target.style.opacity = 1;
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.project-card, .metric').forEach(el => {
-            el.style.opacity = 0;
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'all 0.8s ease';
-            observer.observe(el);
-        });
-    </script>
+        <footer class="footer">
+            <div class="brand">CodAureo DevStudio.</div>
+            <div class="mono">&copy; 2026</div>
+        </footer>
+    </div>
 </body>
 </html>
